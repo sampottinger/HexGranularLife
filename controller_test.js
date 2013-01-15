@@ -5,9 +5,13 @@
  * @license GNU GPL v3
 **/
 
+var constants = require("./constants");
 var controller = require("./controller");
 var grid = require("./grid");
 
+/**
+ * High level driver for all of the controller module tests.
+**/
 function runControllerTests()
 {
     console.log(">> Running controller tests...");
@@ -28,11 +32,11 @@ function testLonelyDeath()
     testGrid.clearGrid();
 
     testGrid.startStagingGrid();
-    testGrid.setSpaceVal(1, 1, 1);
+    testGrid.setSpaceVal(1, 1, constants.MAX_POP);
     testGrid.endStagingGrid();
 
     controller.takeStep(testGrid);
-    if(testGrid.getSpaceVal(1, 1) != 0)
+    if(testGrid.getSpaceVal(1, 1) != constants.STARTED_DYING)
     {
         console.log(
             "FAIL(testLonelyDeath): Cell expected to die but didn\'t."
@@ -48,12 +52,12 @@ function testLonelyDeathOne()
     testGrid.clearGrid();
 
     testGrid.startStagingGrid();
-    testGrid.setSpaceVal(1, 1, 1);
-    testGrid.setSpaceVal(0, 0, 1);
+    testGrid.setSpaceVal(1, 1, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 0, constants.MAX_POP);
     testGrid.endStagingGrid();
 
     controller.takeStep(testGrid);
-    if(testGrid.getSpaceVal(1, 1) != 0)
+    if(testGrid.getSpaceVal(1, 1) != constants.STARTED_DYING)
     {
         console.log(
             "FAIL(testLonelyDeathOne): Cell expected to die but didn\'t."
@@ -69,15 +73,15 @@ function testOverpopulationDeath()
     testGrid.clearGrid();
 
     testGrid.startStagingGrid();
-    testGrid.setSpaceVal(1, 1, 1);
-    testGrid.setSpaceVal(0, 0, 1);
-    testGrid.setSpaceVal(0, 1, 1);
-    testGrid.setSpaceVal(1, 2, 1);
-    testGrid.setSpaceVal(1, 0, 1);
+    testGrid.setSpaceVal(1, 1, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 0, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 1, constants.MAX_POP);
+    testGrid.setSpaceVal(1, 2, constants.MAX_POP);
+    testGrid.setSpaceVal(1, 0, constants.MAX_POP);
     testGrid.endStagingGrid();
 
     controller.takeStep(testGrid);
-    if(testGrid.getSpaceVal(1, 1) != 0)
+    if(testGrid.getSpaceVal(1, 1) != constants.STARTED_DYING)
     {
         console.log(
             "FAIL(testOverpopulationDeath): Cell expected to die but didn\'t."
@@ -93,14 +97,14 @@ function testBirth()
     testGrid.clearGrid();
 
     testGrid.startStagingGrid();
-    testGrid.setSpaceVal(1, 1, 0);
-    testGrid.setSpaceVal(0, 0, 1);
-    testGrid.setSpaceVal(0, 1, 1);
-    testGrid.setSpaceVal(1, 2, 1);
+    testGrid.setSpaceVal(1, 1, constants.MIN_POP);
+    testGrid.setSpaceVal(0, 0, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 1, constants.MAX_POP);
+    testGrid.setSpaceVal(1, 2, constants.MAX_POP);
     testGrid.endStagingGrid();
 
     controller.takeStep(testGrid);
-    if(testGrid.getSpaceVal(1, 1) != 1)
+    if(testGrid.getSpaceVal(1, 1) != constants.JUST_BORN)
     {
         console.log(
             "FAIL(testBirth): Cell expected to be born but didn\'t."
@@ -116,13 +120,13 @@ function testStasisLive()
     testGrid.clearGrid();
 
     testGrid.startStagingGrid();
-    testGrid.setSpaceVal(1, 1, 1);
-    testGrid.setSpaceVal(0, 0, 1);
-    testGrid.setSpaceVal(0, 1, 1);
+    testGrid.setSpaceVal(1, 1, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 0, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 1, constants.MAX_POP);
     testGrid.endStagingGrid();
 
     controller.takeStep(testGrid);
-    if(testGrid.getSpaceVal(1, 1) != 1)
+    if(testGrid.getSpaceVal(1, 1) != constants.MAX_POP)
     {
         console.log(
             "FAIL(testStasisLive): Cell expected to stay alive but didn\'t."
@@ -138,13 +142,13 @@ function testStasisDead()
     testGrid.clearGrid();
 
     testGrid.startStagingGrid();
-    testGrid.setSpaceVal(1, 1, 0);
-    testGrid.setSpaceVal(0, 0, 1);
-    testGrid.setSpaceVal(0, 1, 1);
+    testGrid.setSpaceVal(1, 1, constants.MIN_POP);
+    testGrid.setSpaceVal(0, 0, constants.MAX_POP);
+    testGrid.setSpaceVal(0, 1, constants.MAX_POP);
     testGrid.endStagingGrid();
 
     controller.takeStep(testGrid);
-    if(testGrid.getSpaceVal(1, 1) != 0)
+    if(testGrid.getSpaceVal(1, 1) != constants.MIN_POP)
     {
         console.log(
             "FAIL(testStasisDead): Cell expected to stay dead but didn\'t."

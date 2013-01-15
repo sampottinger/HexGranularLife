@@ -5,6 +5,7 @@
  * @license GNU GPL v3
 **/
 
+var constants = require("./constants");
 var grid = require("./grid");
 
 function runGridTests()
@@ -13,6 +14,7 @@ function runGridTests()
     testClear();
     testStagingGrid();
     testGetterAndSetter();
+    testBounds();
     testNumNeighborsOdd();
     testNumNeighborsEven();
     testNumNeighborsEdge();
@@ -48,12 +50,35 @@ function testGetterAndSetter()
     testGrid.startStagingGrid();
     testGrid.setSpaceVal(4, 1, 1);
     testGrid.setSpaceVal(4, 0, 0);
+    testGrid.changeSpaceVal(4, 2, 0.1);
     testGrid.endStagingGrid();
 
     if(testGrid.getSpaceVal(4, 1) != 1)
         console.log("FAIL(testGetterAndSetter): Setting spaces not correct.");
     if(testGrid.getSpaceVal(4, 0) != 0)
         console.log("FAIL(testGetterAndSetter): Expected zero cell.");
+    if(testGrid.getSpaceVal(4, 2) != 0.1)
+        console.log("FAIL(testGetterAndSetter): Change space val failed.");
+}
+
+
+function testBounds()
+{
+    var testGrid = new grid.HexagonalGrid(5, 5);
+    testGrid.clearGrid();
+
+    testGrid.startStagingGrid();
+    testGrid.setSpaceVal(4, 0, constants.MAX_POP);
+    testGrid.setSpaceVal(4, 1, constants.MIN_POP);
+    testGrid.changeSpaceVal(4, 0, constants.STEP_POP_DELTA);
+    testGrid.changeSpaceVal(4, 1, -constants.STEP_POP_DELTA);
+    testGrid.endStagingGrid();
+
+    if(testGrid.getSpaceVal(4, 0) != constants.MAX_POP)
+        console.log("FAIL(testBounds): Upper population bound failed.");
+    if(testGrid.getSpaceVal(4, 1) != constants.MIN_POP)
+        console.log("FAIL(testBounds): Lower population bound failed.");
+
 }
 
 

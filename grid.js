@@ -66,6 +66,17 @@ function HexagonalGrid(xSize, ySize)
         stagingGrid[xSize * targetY + targetX] = val;
     }
 
+    this.changeSpaceVal = function(targetX, targetY, delta)
+    {
+        var curVal = stagingGrid[xSize * targetY + targetX];
+        
+        curVal += delta;
+        if(curVal > constants.MAX_POP || curVal < constants.MIN_POP)
+            return;
+
+        stagingGrid[xSize * targetY + targetX] = curVal;
+    }
+
     this.startStagingGrid = function()
     {
         stagingGrid = innerGrid.slice(0);
@@ -159,4 +170,5 @@ if (typeof window === 'undefined')
 {
     exports.randInt = randInt;
     exports.HexagonalGrid = HexagonalGrid;
+    var constants = require("./constants");
 }

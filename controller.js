@@ -8,6 +8,12 @@
  * @license GNU GPL v3
 **/
 
+
+/**
+ * Move the simulation forward by a step.
+ *
+ * @param {grid.HexagonalGrid} the game grid to operate on.
+**/
 function takeStep(grid)
 {
     var xSize = grid.getXSize();
@@ -25,11 +31,11 @@ function takeStep(grid)
             // Death - >=4 or <=1 neighbors, life - ==3 neighbors
             if(numNeighbors >= 4 || numNeighbors <= 1)
             {
-                grid.setSpaceVal(curX, curY, 0);
+                grid.changeSpaceVal(curX, curY, -constants.STEP_POP_DELTA);
             }
-            else if (numNeighbors == 3)
+            else if (numNeighbors >= 2.5 && numNeighbors <= 3.5)
             {
-                grid.setSpaceVal(curX, curY, 1);
+                grid.changeSpaceVal(curX, curY, constants.STEP_POP_DELTA);
             }
         }
     }
@@ -37,8 +43,10 @@ function takeStep(grid)
     grid.endStagingGrid();
 }
 
+
 // Export for Node / unit testing
 if (typeof window === 'undefined')
 {
     exports.takeStep = takeStep;
+    var constants = require("./constants");
 }
