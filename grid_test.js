@@ -5,9 +5,14 @@
  * @license GNU GPL v3
 **/
 
+
 var constants = require("./constants");
 var grid = require("./grid");
 
+
+/**
+ * Run unit testing for the hexagonal grid logic / model.
+**/
 function runGridTests()
 {
     console.log(">> Running grid tests...");
@@ -22,15 +27,26 @@ function runGridTests()
 }
 
 
+/**
+ * Test clearing a populated grid.
+**/
 function testClear()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);
+    testGrid.randomizeGrid();
     testGrid.clearGrid();
 
     if(testGrid.getSpaceVal(0, 0) != 0)
         console.log("FAIL(testClear): Spaces not starting at zero");
 }
 
+
+/**
+ * Test that a staging grid does not prematurely influence the active grid.
+ *
+ * Tests that changing the state of the game grid does not actually take effect
+ * until after client code confirms the changes.
+**/
 function testStagingGrid()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);
@@ -42,6 +58,9 @@ function testStagingGrid()
 }
 
 
+/**
+ * Test changing the state of the game grid directly.
+**/
 function testGetterAndSetter()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);
@@ -62,6 +81,9 @@ function testGetterAndSetter()
 }
 
 
+/**
+ * Test that the game grid does not attempt to read a non-existant space.
+**/
 function testBounds()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);
@@ -82,6 +104,9 @@ function testBounds()
 }
 
 
+/**
+ * Test getting the size of the population surrounding a space on an odd column.
+**/
 function testNumNeighborsOdd()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);
@@ -100,6 +125,9 @@ function testNumNeighborsOdd()
 }
 
 
+/**
+ * Test getting size of surrounding population for a space on an even column.
+**/
 function testNumNeighborsEven()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);
@@ -118,6 +146,12 @@ function testNumNeighborsEven()
 }
 
 
+/**
+ * Test getting size of population surrounding an edge space.
+ *
+ * Test getting the size of the population surrounding a space located at the
+ * edge of the game grid.
+**/
 function testNumNeighborsEdge()
 {
     var testGrid = new grid.HexagonalGrid(5, 5);

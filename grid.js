@@ -71,8 +71,11 @@ function HexagonalGrid(xSize, ySize)
         var curVal = stagingGrid[xSize * targetY + targetX];
         
         curVal += delta;
-        if(curVal > constants.MAX_POP || curVal < constants.MIN_POP)
-            return;
+        if(curVal > constants.MAX_POP)
+            curVal = constants.MAX_POP;
+
+        if(curVal < constants.MIN_POP)
+            curVal = constants.MIN_POP;
 
         stagingGrid[xSize * targetY + targetX] = curVal;
     }
@@ -108,8 +111,20 @@ function HexagonalGrid(xSize, ySize)
 
     this.randomizeGrid = function()
     {
+        var newVal;
+
         for(var i=0; i<numSpaces; i++)
-            innerGrid[i] = randInt(0, 2);
+        {
+            newVal = randInt(0, 25);
+            if(newVal > 10)
+            {
+                innerGrid[i] = 0;
+            }
+            else
+            {
+                innerGrid[i] = newVal / 10;
+            }
+        }
     }
 
     /**

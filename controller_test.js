@@ -25,6 +25,9 @@ function runControllerTests()
 }
 
 
+/**
+ * Test that a population / space with no neighbors decreases in population.
+**/
 function testLonelyDeath()
 {
     var testGrid = new grid.HexagonalGrid(3, 3);
@@ -45,6 +48,9 @@ function testLonelyDeath()
 }
 
 
+/**
+ * Test that a space with a surrounding population of 1 decreases in population.
+**/
 function testLonelyDeathOne()
 {
     var testGrid = new grid.HexagonalGrid(3, 3);
@@ -66,6 +72,9 @@ function testLonelyDeathOne()
 }
 
 
+/**
+ * Test that a space whose surrounding spaces are overpopulating it shrinks.
+**/
 function testOverpopulationDeath()
 {
     var testGrid = new grid.HexagonalGrid(3, 3);
@@ -90,6 +99,9 @@ function testOverpopulationDeath()
 }
 
 
+/**
+ * Test that a space's population grows when surrounded by the right population.
+**/
 function testBirth()
 {
     var testGrid = new grid.HexagonalGrid(3, 3);
@@ -113,6 +125,9 @@ function testBirth()
 }
 
 
+/**
+ * Test that a full population neither increases or decreases without pressure.
+**/
 function testStasisLive()
 {
     var testGrid = new grid.HexagonalGrid(3, 3);
@@ -135,6 +150,9 @@ function testStasisLive()
 }
 
 
+/**
+ * Test that an empty space does not spawn life without the right surroundings.
+**/
 function testStasisDead()
 {
     var testGrid = new grid.HexagonalGrid(3, 3);
