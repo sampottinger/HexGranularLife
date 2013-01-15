@@ -30,16 +30,20 @@ function HexagonalGrid(xSize, ySize)
     // Create game grid
     var numSpaces = xSize * ySize;
     var innerGrid = new Array(numSpaces);
+    var stagingGrid = innerGrid.slice(0);
 
-    // Create random starting state
-    for(var i=0; i<numSpaces; i++)
-        innerGrid[i] = randInt(0, 2);
+    this.getXSize = function()
+    {
+        return xSize;
+    }
 
-    // Create copy into staging grid
-    var innerStagingGrid = innerGrid.slice(0);
+    this.getYSize = function()
+    {
+        return ySize;
+    }
 
     /**
-     * Get the value of a space in this grid.
+     * Get the value of a space in this grid's staging grid.
      *
      * @param {number} targetX The x position to get the value for.
      * @param {number} targetY The y position to get the value for.
@@ -51,7 +55,7 @@ function HexagonalGrid(xSize, ySize)
     }
 
     /**
-     * Set the value of a spce in this grid.
+     * Set the value of a spce in this grid's staging grid.
      *
      * @param {number} targetX The x position to set the value for.
      * @param {number} targetY The y position to set the value for.
@@ -59,7 +63,17 @@ function HexagonalGrid(xSize, ySize)
     **/
     this.setSpaceVal = function(targetX, targetY, val)
     {
-        innerGrid[xSize * targetY + targetX] = val;
+        stagingGrid[xSize * targetY + targetX] = val;
+    }
+
+    this.startStagingGrid = function()
+    {
+        stagingGrid = innerGrid.slice(0);
+    }
+
+    this.endStagingGrid = function()
+    {
+        innerGrid = stagingGrid.slice(0);
     }
 
     this.isValidCoord = function(targetX, targetY)
@@ -78,6 +92,13 @@ function HexagonalGrid(xSize, ySize)
             for(var x=0; x<xSize; x++)
                 this.setSpaceVal(x, y, 0);
         }
+        this.endStagingGrid();
+    }
+
+    this.randomizeGrid = function()
+    {
+        for(var i=0; i<numSpaces; i++)
+            innerGrid[i] = randInt(0, 2);
     }
 
     /**
@@ -102,11 +123,17 @@ function HexagonalGrid(xSize, ySize)
         {
             startY = targetY;
             endY = targetY + 1;
+            
+            if(this.isValidCoord(targetX, targetY-1))
+                count += this.getSpaceVal(targetX, targetY-1);
         }
         else
         {
             startY = targetY - 1;
             endY = targetY;
+
+            if(this.isValidCoord(targetX, targetY+1))
+                count += this.getSpaceVal(targetX, targetY+1);
         }
 
         // Count living
@@ -127,7 +154,7 @@ function HexagonalGrid(xSize, ySize)
 }
 
 
-// Export for Node
+// Export for Node / unit testing
 if (typeof window === 'undefined')
 {
     exports.randInt = randInt;
