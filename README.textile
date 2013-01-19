@@ -35,6 +35,6 @@ black fill.
 
 h2. Technologies and Resources Used
 
-The entire solution runs in JavaScript (ECMAScript), targeting the HTML5 canvas
-element. While not written in Processing, the solution draws on "The Nature of Code":http://natureofcode.com/ by "Daniel Shiffman":http://www.shiffman.net/.
+The entire solution runs in JavaScript (ECMAScript), targeting the HTML5 canvas element.
+While not written in Processing, the solution draws on "The Nature of Code":http://natureofcode.com/ by "Daniel Shiffman":http://www.shiffman.net/.
 The client side leverages jQuery, released under the "MIT License":http://jquery.org/license/.
