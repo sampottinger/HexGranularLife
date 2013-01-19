@@ -1,6 +1,6 @@
 h1. Hexagonal Population Game of Life
 
-(c) 2013 Sam Pottinger
+(c) 2013 "Sam Pottinger":http://gleap.org
 Released under the "GNU GPL v3":http://www.gnu.org/licenses/gpl.html license.
 Done for "CU Boulder":http://www.colorado.edu/cs/ CSCI 4900 (Software Engineering, Emergence, and Complex Adaptive Sys.)
 Produced under the guidance of "Professor Ken Anderson":http://www.cs.colorado.edu/~kena/
@@ -8,29 +8,28 @@ Produced under the guidance of "Professor Ken Anderson":http://www.cs.colorado.e
 
 h2. Motivation
 
-Classically Conway's Game of Life focuses on a square-based "game board" and
-this project explores how the same rules and behaviors could adapt to a
-hexagonal grid with cells who, unlike the typical implementation are either
-dead or alive, have granular health or act like populations that grow and
-shrink over time.
-
+While typically Conway's Game of Life focuses on a square-based "game board"
+environment, This project explores how the classic simulation's same rules and
+behaviors could adapt to a hexagonal grid with cells which, unlike the typical
+implementation, are not just dead or alive but can have granular health, acting
+like populations that grow and shrink.
 
 h2. Rules
 
-Each cell can take on a "population value" from 0 to 1 and, at each step / 
-generation in the simulation, the populations surrounding a cell are summed.
-This surrounding population value is then evaluated against the following rules:
-* If this sum exceeds 3 or is below 2, the population looses a value of 0.1.
-* If this sum is in the range 2.5 to 3.5, the population gains a value of 0.1.
-* All other values leae the cell's population unchanged.
+Each cell takes on a "population value" from 0 to 1 and, at each simulation
+step / generation, the population values surrounding a cell are summed.
+
+This "surrounding population value" is then evaluated against these rules:
+* If this sum exceeds 3 or is below 2, the cell's population value decrements by 0.1.
+* If this sum is in the range 2.5 to 3.5, the cell's population value increases by 0.1.
+* All other values leave the cell's population unchanged.
 
 
 h2. Visual Representation
 
-A population value gives a cell an empty fill color (for empty). Cells with
-population values from 0.1 to 0.9 are grey and grow darker as their values as
-their values get larger. A population value of 1 (full capacity) recieves a
-black fill.
+A population value of 0 gives a cell a white fill color (for empty). Cells with
+population values from 0.1 to 0.9 are grey and grow darker as their values get
+larger. A population value of 1 (full capacity) receives a black fill.
 
 
 h2. Technologies and Resources Used
