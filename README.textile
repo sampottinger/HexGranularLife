@@ -2,8 +2,8 @@ h1. Hexagonal Population Game of Life
 
 (c) 2013 Sam Pottinger
 Released under the "GNU GPL v3":http://www.gnu.org/licenses/gpl.html license.
-Done for CSCI 4900 (Software Engineering, Emergence, and Complex Adaptive Sys.)
-"Professor Ken Anderson":http://www.cs.colorado.edu/~kena/
+Done for "CU Boulder":http://www.colorado.edu/cs/ CSCI 4900 (Software Engineering, Emergence, and Complex Adaptive Sys.)
+Produced under the guidance of "Professor Ken Anderson":http://www.cs.colorado.edu/~kena/
 
 
 h2. Motivation
@@ -37,6 +37,5 @@ h2. Technologies and Resources Used
 
 The entire solution runs in JavaScript (ECMAScript), targeting the HTML5 canvas
 element. While not written in Processing, the solution draws on
-"The Nature of Code":http://natureofcode.com/ by
-"Daniel Shiffman":http://www.shiffman.net/. The client side leverages jQuery,
-released under the "MIT License":http://jquery.org/license/.
+"The Nature of Code":http://natureofcode.com/ by "Daniel Shiffman":http://www.shiffman.net/.
+The client side leverages jQuery, released under the "MIT License":http://jquery.org/license/.
